@@ -12,7 +12,7 @@ const Home: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/home') //fetch the articles from the API
+    axios.get('http://localhost:8001/api/home') //fetch the articles from the API
         .then(response => {
             console.log('Réponse API:', response.data); 
             if (Array.isArray(response.data.article)) {
