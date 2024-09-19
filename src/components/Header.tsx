@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../assets/logo.png';
 import axios from 'axios';
+import bannerImage from '../assets/banner.png'; // Assurez-vous que le chemin est correct
 
 interface Destination {
-  id: number; // Ajout de l'ID pour la redirection
+  id: number;
   name: string;
   slug: string;
   description: string;
@@ -24,7 +25,6 @@ const Header: React.FC = () => {
   const [isThemesMenuOpen, setIsThemesMenuOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch destinations from the API
   useEffect(() => {
     axios.get('http://localhost:8000/api/destinations')
       .then(response => {
@@ -36,7 +36,6 @@ const Header: React.FC = () => {
       });
   }, []);
 
-  // Fetch themes from the API
   useEffect(() => {
     axios.get('http://localhost:8000/api/themes')
       .then(response => {
@@ -53,86 +52,79 @@ const Header: React.FC = () => {
   }
 
   return (
-    <header className="bg-gray-800 text-white p-4 relative z-50">
-      <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-2xl">A travers le globe</h1>
-        <Link to="/api/home">
-          <img src={Logo} alt="Logo" className="w-32" />
-        </Link>
-
-        <nav className="relative flex space-x-4">
-          {/* Destinations */}
-          <div
-            className="relative inline-block"
-            onMouseEnter={() => setIsDestinationsMenuOpen(true)}
-            onMouseLeave={() => setIsDestinationsMenuOpen(false)}
-          >
-            <button className="hover:underline">
-              Destinations
-            </button>
-
-            {/* Sous-menu des destinations */}
-            {isDestinationsMenuOpen && destinations.length > 0 && (
-              <div className="absolute left-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg z-20">
-                {destinations.map((destination) => (
-                  <Link
-                    key={destination.id}
-                    to={`/api/articles/destination/${destination.id}`} // Redirection vers l'API avec l'ID
-                    className="block px-4 py-2 hover:bg-gray-200"
-                  >
-                    {destination.name}
-                  </Link>
-                ))}
-              </div>
-            )}
+    <>
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+        <div className="container mx-auto flex items-center justify-between py-2 px-6">
+          {/* Logo */}
+          <div className="flex items-center space-x-4">
+          <Link to="/api/home">
+            <img src={Logo} alt="Logo" className="w-32" />
+          </Link>
           </div>
 
-          {/* Thèmes */}
-          <div
-            className="relative inline-block"
-            onMouseEnter={() => setIsThemesMenuOpen(true)}
-            onMouseLeave={() => setIsThemesMenuOpen(false)}
-          >
-            <button className="hover:underline">
-              Thèmes
-            </button>
+          {/* Navigation Menu */}
+          <nav className="flex space-x-4">
+            {/* Destinations */}
+            <div
+              className="relative inline-block"
+              onMouseEnter={() => setIsDestinationsMenuOpen(true)}
+              onMouseLeave={() => setIsDestinationsMenuOpen(false)}
+            >
+              <button className="text-black hover:underline">
+                Destinations
+              </button>
+              {isDestinationsMenuOpen && destinations.length > 0 && (
+                <div className="absolute left-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg z-20">
+                  {destinations.map((destination) => (
+                    <Link
+                      key={destination.id}
+                      to={`/articles/destination/${destination.id}`}
+                      className="block px-4 py-2 hover:bg-gray-200"
+                    >
+                      {destination.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
-            {/* Sous-menu des thèmes */}
-            {isThemesMenuOpen && themes.length > 0 && (
-              <div className="absolute left-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg z-20">
-                {themes.map((theme) => (
-                  <Link
-                    key={theme.id}
-                    to={`/api/theme/${theme.id}`}
-                    className="block px-4 py-2 hover:bg-gray-200"
-                  >
-                    {theme.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        </nav>
+            {/* Themes */}
+            <div
+              className="relative inline-block"
+              onMouseEnter={() => setIsThemesMenuOpen(true)}
+              onMouseLeave={() => setIsThemesMenuOpen(false)}
+            >
+              <button className="text-black hover:underline">
+                Thèmes
+              </button>
+              {isThemesMenuOpen && themes.length > 0 && (
+                <div className="absolute left-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg z-20">
+                  {themes.map((theme) => (
+                    <Link
+                      key={theme.id}
+                      to={`/themes/${theme.id}`}
+                      className="block px-4 py-2 hover:bg-gray-200"
+                    >
+                      {theme.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          </nav>
+        </div>
+      </header>
 
-        {/* Menu mobile */}
-        <button className="lg:hidden p-2">
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16m-7 6h7"
-            ></path>
-          </svg>
-        </button>
+      {/* Bannière d'Image avec Texte */}
+      <div
+        className="relative w-full h-[80vh] bg-cover bg-center"
+        style={{ backgroundImage: `url(${bannerImage})` }}
+      >
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-40 text-white">
+          <h1 className="text-5xl font-bold font-rainbow mt-10">Bienvenue sur mon blog</h1>
+        </div>
       </div>
-    </header>
+    </>
   );
 };
 
