@@ -62,8 +62,12 @@ const Header: React.FC = () => {
           </Link>
           </div>
 
-          {/* Navigation Menu */}
-          <nav className="flex space-x-4">
+            {/* Navigation Menu */}
+            <nav className="flex space-x-4">
+            {/* Accueil */}
+            <Link to="/api/home" className="text-black hover:underline">
+              Accueil
+            </Link>
             {/* Destinations */}
             <div
               className="relative inline-block"
@@ -78,7 +82,7 @@ const Header: React.FC = () => {
                   {destinations.map((destination) => (
                     <Link
                       key={destination.id}
-                      to={`/articles/destination/${destination.id}`}
+                      to={`api/articles/destination/${destination.id}`}
                       className="block px-4 py-2 hover:bg-gray-200"
                     >
                       {destination.name}
@@ -102,7 +106,7 @@ const Header: React.FC = () => {
                   {themes.map((theme) => (
                     <Link
                       key={theme.id}
-                      to={`/themes/${theme.id}`}
+                      to={`api/themes/${theme.id}`}
                       className="block px-4 py-2 hover:bg-gray-200"
                     >
                       {theme.name}
@@ -114,6 +118,7 @@ const Header: React.FC = () => {
           </nav>
         </div>
       </header>
+      
 
       {/* Bannière d'Image avec Texte */}
       <div
