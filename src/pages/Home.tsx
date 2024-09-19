@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+
 // Interfaces
 interface Article {
   id: number;
@@ -24,8 +25,12 @@ interface Destination {
 // Component for section "À la Une"
 const ALaUne: React.FC<{ articles: Article[] }> = ({ articles }) => {
   return (
+
     <section>
-      <h2 className="text-2xl font-bold mb-4">À la une</h2>
+      <div className="relative flex items-center justify-center my-8">
+        <hr className="border-t border-gray-300 w-full" />
+        <span className="absolute px-4 bg-white text-2xl font-bold font-ptserif">À la une</span>
+      </div>
       <p className="mb-4">Les derniers articles du blog</p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {articles.slice(0, 3).map(article => (
@@ -46,7 +51,10 @@ const ALaUne: React.FC<{ articles: Article[] }> = ({ articles }) => {
 const Themes: React.FC<{ themes: Theme[] }> = ({ themes }) => {
   return (
     <section>
-      <h2 className="text-2xl font-bold mb-4">Thèmes</h2>
+      <div className="relative flex items-center justify-center my-8">
+        <hr className="border-t border-gray-300 w-full" />
+        <span className="absolute px-4 bg-white text-2xl font-bold font-ptserif">Themes</span>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {themes.map(theme => (
           <article key={theme.id} className="p-4 border border-gray-200 rounded-lg">
@@ -61,8 +69,11 @@ const Themes: React.FC<{ themes: Theme[] }> = ({ themes }) => {
 // Component for section "Destinations" (5 destinations)
 const Destinations: React.FC<{ destinations: Destination[] }> = ({ destinations }) => {
   return (
-    <section>
-      <h2 className="text-2xl font-bold mb-4">Destinations</h2>
+    <section>      
+      <div className="relative flex items-center justify-center my-8">
+    <hr className="border-t border-gray-300 w-full" />
+    <span className="absolute px-4 bg-white text-2xl font-bold font-ptserif">Destinations</span>
+  </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {destinations.slice(0, 5).map(destination => (
           <article key={destination.id} className="p-4 border border-gray-200 rounded-lg">
@@ -73,13 +84,14 @@ const Destinations: React.FC<{ destinations: Destination[] }> = ({ destinations 
           </article>
         ))}
       </div>
+     
     </section>
   );
 };
 
 // Main Blog Page Component
 const Home: React.FC = () => {
-  
+
   const [articles, setArticles] = useState<Article[]>([]);
   const [themes, setThemes] = useState<Theme[]>([]);
   const [destinations, setDestinations] = useState<Destination[]>([]);

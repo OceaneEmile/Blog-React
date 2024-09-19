@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       fontFamily: {
         rainbow: ['"Over the Rainbow"', 'cursive'],  // Ajout de la police
+        ptserif: ['"PT Serif"', 'serif'],
       },
     },
   },
