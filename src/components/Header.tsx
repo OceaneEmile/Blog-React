@@ -103,7 +103,7 @@ const Header: React.FC = () => {
                 {themes.map((theme) => (
                   <Link
                     key={theme.id}
-                    to={`/api/themes/${theme.slug}`}
+                    to={`/api/theme/${theme.id}`}
                     className="block px-4 py-2 hover:bg-gray-200"
                   >
                     {theme.name}
