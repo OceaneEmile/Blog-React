@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import ArticlesByDestination from './pages/ArticlesByDestination';
 import DestinationsPage from './pages/Destinations';
 import ArticlesByTheme from './pages/ArticlesByTheme';
+import ArticlesbyId from './pages/ArticlesbyId';
+
 const App: React.FC = () => {
   return (
     <Router>
@@ -16,8 +18,10 @@ const App: React.FC = () => {
         <Route path='api/articles/destination/:id' element={<ArticlesByDestination />} />
         <Route path='api/destinations' element={<DestinationsPage />} />
         <Route path='api/articles/theme/:id' element={<ArticlesByTheme />} />
+        <Route path='api/article/:id' element={<ArticlesbyId />} />
         <Route path='api/destination/:id' element={<ArticlesByDestination />} />
         <Route path='api/theme/:id' element={<ArticlesByTheme />} />
+        
       </Routes>
       <Footer />
     </Router>
