@@ -6,6 +6,8 @@ interface Article {
   id: number;
   title: string;
   image: string;
+  content: string;
+  createdAt: string;
 }
 interface Destination {
   id: number;
@@ -49,10 +51,13 @@ const ArticlesByDestination: React.FC = () => {
       <h2 className="text-xl mb-4">{destination ? destination.name : 'Destination'}</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {articles.map(article => (
-          <div key={article.id} className="border rounded-lg p-4">
-            <img src={article.image} alt={article.title} className="w-full h-48 object-cover mb-2" />
-            <h3 className="text-lg font-semibold">{article.title}</h3>
-          </div>
+          <article key={article.id} className="p-4 border border-gray-200 rounded-lg">
+          <a href={`/api/article/${article.id}`} className="block">
+            <img src={article.image} alt={article.title} className="mb-2 w-full h-auto rounded-lg" loading="lazy" />
+          </a>
+          <h3 className="text-xl font-semibold">{article.title}</h3>
+          <p className="text-sm text-gray-500">{new Date(article.createdAt).toLocaleDateString()}</p>
+        </article>
         ))}
       </div>
     </div>
