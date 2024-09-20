@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../assets/logo.png';
 import axios from 'axios';
-import bannerImage from '../assets/banner.png';
 
 interface Destination {
   id: number;
@@ -21,14 +20,16 @@ interface Theme {
 const Header: React.FC = () => {
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [themes, setThemes] = useState<Theme[]>([]);
-  const [isDestinationsMenuOpen, setIsDestinationsMenuOpen] = useState(false);
+  const [isDestinationsMenuOpen, setIsDestinationsMenuOpen] = useState(false); //False by default to close the sub-menu
   const [isThemesMenuOpen, setIsThemesMenuOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Créer des références pour chaque sous-menu
+  // Useref for the destinations and themes sub-menus
+  // Refs are used to access the DOM elements directly
   const destinationsRef = useRef<HTMLDivElement>(null);
   const themesRef = useRef<HTMLDivElement>(null);
 
+  // Fetch destinations
   useEffect(() => {
     axios.get('http://localhost:8000/api/destinations')
       .then(response => {
@@ -39,7 +40,7 @@ const Header: React.FC = () => {
         setError('Erreur lors du chargement des destinations');
       });
   }, []);
-
+ // Fetch themes
   useEffect(() => {
     axios.get('http://localhost:8000/api/themes')
       .then(response => {
@@ -51,23 +52,24 @@ const Header: React.FC = () => {
       });
   }, []);
 
-  // useEffect pour fermer le menu si on clique en dehors
+  //Function handleClickoutside called when the user clicks outside the sub-menu ( event Mousedown)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      // Vérifier si le clic est à l'extérieur du sous-menu Destinations
+      // Check if the click is outside the Destinations sub-menu, then close it
+      // by using useref to know if the click is outside the sub-menu
       if (destinationsRef.current && !destinationsRef.current.contains(event.target as Node)) {
-        setIsDestinationsMenuOpen(false);
+        setIsDestinationsMenuOpen(false); // when set to false, the sub-menu will be closed, when set to true, the sub-menu will be open
       }
-      // Vérifier si le clic est à l'extérieur du sous-menu Thèmes
+      // Check if the click is outside the Theme sub-menu
       if (themesRef.current && !themesRef.current.contains(event.target as Node)) {
         setIsThemesMenuOpen(false);
       }
     };
 
-    // Ajouter l'événement qui écoute les clics sur tout le document
+    // Add event mousedown (js event)to the document
     document.addEventListener("mousedown", handleClickOutside);
 
-    // Nettoyer l'événement lors du démontage du composant pour éviter les fuites
+    // Clean up the event listener when the component is unmounted
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -158,18 +160,6 @@ const Header: React.FC = () => {
           </nav>
         </div>
       </header>
-
-      {/* Bannière d'Image avec Texte */}
-      <div
-        className="relative w-full h-[80vh] bg-cover bg-center"
-        style={{ backgroundImage: `url(${bannerImage})` }}
-      >
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-40 text-white">
-          <h1 className="text-5xl font-bold font-rainbow mt-10">
-            Bienvenue sur mon blog
-          </h1>
-        </div>
-      </div>
     </>
   );
 };

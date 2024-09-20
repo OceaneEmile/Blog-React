@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import bannerImage from '../assets/banner.png';
 
 
 // Interfaces
@@ -134,6 +135,17 @@ const Home: React.FC = () => {
 
   return (
     <main className="p-4">
+            {/* Bannière d'Image avec Texte */}
+            <div
+        className="relative w-full h-[80vh] bg-cover bg-center"
+        style={{ backgroundImage: `url(${bannerImage})` }}
+      >
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-40 text-white">
+          <h1 className="text-5xl font-bold font-rainbow mt-10">
+            Bienvenue sur mon blog
+          </h1>
+        </div>
+      </div>
       <ALaUne articles={articles} />
       <Themes themes={themes} />
       <Destinations destinations={destinations} />
