@@ -18,6 +18,7 @@ interface Theme {
   description: string;
 }
 
+
 const Header: React.FC = () => {
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [themes, setThemes] = useState<Theme[]>([]);
@@ -61,9 +62,8 @@ const Header: React.FC = () => {
             <img src={Logo} alt="Logo" className="w-32" />
           </Link>
           </div>
-
             {/* Navigation Menu */}
-            <nav className="flex space-x-4">
+            <nav className="flex flex-wrap space-x-2 md:space-x-5">
             {/* Accueil */}
             <Link to="/api/home" className="text-black hover:underline">
               Accueil
@@ -91,7 +91,6 @@ const Header: React.FC = () => {
                 </div>
               )}
             </div>
-
             {/* Themes */}
             <div
               className="relative inline-block"
@@ -115,6 +114,10 @@ const Header: React.FC = () => {
                 </div>
               )}
             </div>
+          {/* A propos */}
+          <Link to="/api/about" className="text-black hover:underline">
+            A propos
+            </Link>
           </nav>
         </div>
       </header>
