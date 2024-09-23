@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import CommentForm from "./CommentForm"; 
+import CommentForm from "./CommentForm";
 
 interface Article {
   id: string;
@@ -20,7 +20,7 @@ interface Comment {
 
 const ArticlesbyId: React.FC = () => {
   const { id } = useParams<{ id: string }>(); //retrieving the ID from the URL
-  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null); 
+  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -53,37 +53,45 @@ const ArticlesbyId: React.FC = () => {
   }
 
   if (!selectedArticle) {
-    return <div>Chargement de l'article...</div>; 
+    return <div>Chargement de l'article...</div>;
   }
 
   return (
-    <main className="p-4">
-      <section>
-        <h2 className="text-2xl font-bold mb-4">{selectedArticle.title}</h2>
-        <div className="p-4 border border-gray-200 rounded-lg">
+    <main className=" p-6 md:p-12">
+      <section className="mt-20">
+        {/* Titre de l'article */}
+        <h1 className="mb-18 text-3xl font-bold mb-6 text-center text-blue-800">{selectedArticle.title}</h1>
+        
+        {/* Image réduite avec une bordure douce */}
+        <div className="mb-6">
           <img
             src={selectedArticle.image}
             alt={selectedArticle.title}
-            className="mb-2 w-full h-auto rounded-lg"
-            loading="lazy"
+            className="w-full max-w-3xl h-auto mx-auto rounded-lg shadow-md"
+            style={{ maxHeight: '400px', objectFit: 'cover' }}
           />
-          <p className="text-sm text-gray-500">{new Date(selectedArticle.createdAt).toLocaleDateString()}</p>
-          <p className="text-gray-500">{selectedArticle.content}</p>
         </div>
-        <div>
-          {/* Form to let a comment */}
-          {/* articleid is a prop*/}
+
+        {/* Date et contenu */}
+        <p className="text-sm text-gray-500 mb-6 text-center">
+          Publié le {new Date(selectedArticle.createdAt).toLocaleDateString()}
+        </p>
+        <p className="text-lg text-gray-700 leading-relaxed max-w-4xl mx-auto">{selectedArticle.content}</p>
+        
+        {/* Section des commentaires */}
+        <div className="mt-12">
           <CommentForm articleId={selectedArticle.id}/>
         </div>
-        {/* Display the comments */}
-                <div className="mt-8">
-          <h3 className="text-xl font-semibold mb-4">Commentaires</h3>
+        
+        {/* Liste des commentaires */}
+        <div className="mt-12">
+          <h3 className="text-2xl font-semibold mb-4">Commentaires</h3>
           {comments.length > 0 ? (
-            <ul>
+            <ul className="space-y-4">
               {comments.map(comment => (
-                <li key={comment.id} className="mb-4 p-4 bg-gray-100 rounded-md shadow">
-                  <p className="text-gray-700"><strong>{comment.author}</strong> - {new Date(comment.createdAt).toLocaleDateString()}</p>
-                  <p className="text-gray-600">{comment.content}</p>
+                <li key={comment.id} className="p-4 bg-gray-100 rounded-lg shadow-sm">
+                  <p className="text-sm text-gray-600"><strong>{comment.author}</strong> le {new Date(comment.createdAt).toLocaleDateString()}</p>
+                  <p className="text-base text-gray-700 mt-2">{comment.content}</p>
                 </li>
               ))}
             </ul>
@@ -95,5 +103,6 @@ const ArticlesbyId: React.FC = () => {
     </main>
   );
 };
+
 
 export default ArticlesbyId;

@@ -78,26 +78,24 @@ const Header: React.FC = () => {
   if (error) {
     return <div className="text-red-500">{error}</div>;
   }
-
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+     <header className="fixed top-0 left-0 right-0 h-16 bg-white shadow-md z-50">
         <div className="container mx-auto flex items-center justify-between py-2 px-6">
           {/* Logo */}
           <div className="flex items-center space-x-4">
             <Link to="/api/home">
-              <img src={Logo} alt="Logo" className="w-32" />
+              <img src={Logo} alt="Logo" className="w-16" /> {/* Small size */}
             </Link>
           </div>
 
           {/* Navigation Menu */}
-          <nav className="flex space-x-5">
-            {/* Accueil */}
+          <nav className="ml-auto flex space-x-5"> 
             <Link to="/api/home" className="text-black hover:underline">
               Accueil
             </Link>
 
-            {/* Destinations - Menu déroulant avec onClick */}
+            {/* Destinations - Menu déroulant */}
             <div className="relative" ref={destinationsRef}>
               <button
                 className="text-black hover:underline"
@@ -105,7 +103,6 @@ const Header: React.FC = () => {
               >
                 Destinations
               </button>
-              {/* Sous-menu */}
               {isDestinationsMenuOpen && (
                 <div className="absolute bg-white text-black mt-2 rounded-md shadow-lg z-20 w-48">
                   {destinations.length > 0 ? (
@@ -125,7 +122,7 @@ const Header: React.FC = () => {
               )}
             </div>
 
-            {/* Themes - Menu déroulant avec onClick */}
+            {/* Themes - Menu déroulant */}
             <div className="relative" ref={themesRef}>
               <button
                 className="text-black hover:underline"
@@ -133,7 +130,6 @@ const Header: React.FC = () => {
               >
                 Thèmes
               </button>
-              {/* Sous-menu */}
               {isThemesMenuOpen && (
                 <div className="absolute bg-white text-black mt-2 rounded-md shadow-lg z-20 w-48">
                   {themes.length > 0 ? (
@@ -153,7 +149,6 @@ const Header: React.FC = () => {
               )}
             </div>
 
-            {/* A propos */}
             <Link to="/api/about" className="text-black hover:underline">
               A propos
             </Link>
@@ -163,5 +158,6 @@ const Header: React.FC = () => {
     </>
   );
 };
+
 
 export default Header;
