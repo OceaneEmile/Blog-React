@@ -9,6 +9,7 @@ import ArticlesByTheme from './pages/ArticlesByTheme';
 import ArticlesbyId from './pages/ArticlesbyId';
 import AboutPage from './pages/AboutPage';
 
+
 const App: React.FC = () => {
   return (
     <Router>
@@ -23,7 +24,7 @@ const App: React.FC = () => {
         <Route path='api/destination/:id' element={<ArticlesByDestination />} />
         <Route path='api/theme/:id' element={<ArticlesByTheme />} />
         <Route path='api/about' element={<AboutPage />}/>
-        
+       
       </Routes>
       <Footer />
     </Router>

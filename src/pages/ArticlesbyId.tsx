@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import CommentForm from "./CommentForm"; 
 
-// Interface pour un article
+
 interface Article {
-  id: number;
+  id: string;
   title: string;
   image: string;
   createdAt: string;
@@ -12,15 +13,15 @@ interface Article {
 }
 
 const ArticlesbyId: React.FC = () => {
-  const { id } = useParams<{ id: string }>(); // Récupère l'ID depuis les paramètres d'URL
-  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null); // État pour un article spécifique
+  const { id } = useParams<{ id: string }>(); //retrieving the ID from the URL
+  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null); 
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Récupérer l'article spécifique par ID
+    // Retrieve the article with the specified ID
     axios.get(`http://localhost:8000/api/article/${id}`)
       .then(response => {
-        setSelectedArticle(response.data); // Stocker l'article spécifique
+        setSelectedArticle(response.data); // Save the article in the state
       })
       .catch(error => {
         console.error('Erreur lors du chargement de l\'article', error);
@@ -33,7 +34,7 @@ const ArticlesbyId: React.FC = () => {
   }
 
   if (!selectedArticle) {
-    return <div>Chargement de l'article...</div>; // Afficher un message de chargement pendant l'appel API
+    return <div>Chargement de l'article...</div>; 
   }
 
   return (
@@ -49,6 +50,11 @@ const ArticlesbyId: React.FC = () => {
           />
           <p className="text-sm text-gray-500">{new Date(selectedArticle.createdAt).toLocaleDateString()}</p>
           <p className="text-gray-500">{selectedArticle.content}</p>
+        </div>
+        <div>
+          {/* Form to let a comment */}
+          {/* articleid is a prop*/}
+          <CommentForm articleId={selectedArticle.id}/>
         </div>
       </section>
     </main>
