@@ -4,26 +4,22 @@ interface CommentFormProps {
   articleId: string;
 }
 
-// CommentFormprops is a functional component that allows users to submit comments
 const CommentForm: React.FC<CommentFormProps> = ({ articleId }) => {
   const [author, setAuthor] = useState("");
   const [email, setEmail] = useState("");
   const [content, setContent] = useState("");
-  const [statusMessage, setStatusMessage] = useState(""); // message for success or error
+  const [statusMessage, setStatusMessage] = useState("");
 
-  // Function to handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Create a new comment object
     const newComment = {
       author,
       email,
       content,
-      article_id: articleId, 
+      article_id: articleId,
     };
 
-    // Send a POST request to the API and convert the response to JSON
     try {
       const response = await fetch("http://localhost:8000/api/comments", {
         method: "POST",
@@ -32,8 +28,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ articleId }) => {
         },
         body: JSON.stringify(newComment),
       });
-      
-      // If the response is successful, display a success message and form is cleared
+
       if (response.ok) {
         setStatusMessage("Commentaire ajouté avec succès !");
         setAuthor("");
@@ -42,45 +37,60 @@ const CommentForm: React.FC<CommentFormProps> = ({ articleId }) => {
       } else {
         const errorData = await response.json();
         setStatusMessage(errorData.error || "Erreur lors de l'ajout du commentaire");
-      } // catch is used to handle network errors
+      }
     } catch (error) {
       setStatusMessage("Erreur réseau");
     }
   };
 
   return (
-    <div>
-      <h2>Laissez un commentaire</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="bg-blue-50 p-6 rounded-lg shadow-md w-full mx-auto mt-10">
+      <h2 className="text-2xl font-bold text-blue-600 mb-4 text-center">Laissez un commentaire</h2>
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label>Nom :</label>
+          <label className="block text-lg font-medium text-blue-700 mb-1">Nom :</label>
           <input
             type="text"
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
             required
+            className="w-full p-3 border-2 border-blue-300 rounded-md focus:outline-none focus:border-blue-500"
+            placeholder="Votre nom"
           />
         </div>
         <div>
-          <label>Email :</label>
+          <label className="block text-lg font-medium text-blue-700 mb-1">Email :</label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            className="w-full p-3 border-2 border-blue-300 rounded-md focus:outline-none focus:border-blue-500"
+            placeholder="Votre email"
           />
         </div>
         <div>
-          <label>Commentaire :</label>
+          <label className="block text-lg font-medium text-blue-700 mb-1">Commentaire :</label>
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
+            className="w-full h-32 p-3 border-2 border-blue-300 rounded-md focus:outline-none focus:border-blue-500"
+            placeholder="Votre commentaire"
           ></textarea>
         </div>
-        <button type="submit">Laisser un commentaire</button>
+        <button
+          type="submit"
+          className="bg-yellow-400 text-blue-800 font-bold py-3 px-6 rounded-md hover:bg-yellow-300 transition-colors w-full"
+        >
+          Laisser un commentaire
+        </button>
       </form>
-      {statusMessage && <p>{statusMessage}</p>}
+      {statusMessage && (
+        <p className={`mt-4 text-center ${statusMessage.includes("succès") ? "text-green-600" : "text-red-600"}`}>
+          {statusMessage}
+        </p>
+      )}
     </div>
   );
 };
