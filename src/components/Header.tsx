@@ -90,7 +90,7 @@ const Header: React.FC = () => {
           </div>
 
           {/* Navigation Menu */}
-          <nav className="ml-auto flex space-x-5"> 
+          <nav className="ml-auto flex space-x-5">  
             <Link to="/api/home" className="text-black hover:underline">
               Accueil
             </Link>

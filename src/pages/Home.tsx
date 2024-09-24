@@ -3,6 +3,7 @@ import axios from 'axios';
 import bannerImage from '../assets/banner.png';
 
 
+
 // Interfaces
 interface Article {
   id: number;
@@ -50,15 +51,24 @@ const ALaUne: React.FC<{ articles: Article[] }> = ({ articles }) => {
 
 // Component for section "Thèmes"
 const Themes: React.FC<{ themes: Theme[] }> = ({ themes }) => {
+  // Define the backend URL for images
+  const backendUrl = 'http://localhost:8000'; // images are in the backend
+
   return (
     <section>
       <div className="relative flex items-center justify-center my-8">
         <hr className="border-t border-gray-300 w-full" />
-        <span className="absolute px-4 bg-white text-2xl font-bold font-ptserif">Themes</span>
+        <span className="absolute px-4 bg-white text-2xl font-bold font-ptserif">Thèmes</span>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {themes.map(theme => (
           <article key={theme.id} className="p-4 border border-gray-200 rounded-lg">
+            <img
+              src={`${backendUrl}${theme.image}`} // Prepend the backend URL to the image path
+              alt={theme.name}
+              className="mb-2 w-full h-auto rounded-lg"
+              loading="lazy"
+            />
             <h3 className="text-xl font-semibold">{theme.name}</h3>
           </article>
         ))}
@@ -66,6 +76,8 @@ const Themes: React.FC<{ themes: Theme[] }> = ({ themes }) => {
     </section>
   );
 };
+
+
 
 // Component for section "Destinations" (5 destinations)
 const Destinations: React.FC<{ destinations: Destination[] }> = ({ destinations }) => {

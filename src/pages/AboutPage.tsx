@@ -1,45 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+// src/components/About.
+import './About.css'; // Assure-toi d'ajouter ce fichier pour personnaliser les styles.
 
-// Interface pour la page About
-interface AboutPageData {
-  message: string;
+const About = () => {
+  return (
+    <div className="about-container">
+      <div className="image-container">
+        {/* Ajoute ici l'image en modifiant le chemin */}
+        <img src={require('../assets/moi.jpg')} alt="Ton nom" className="profile-image" />
+      </div>
+      <div className="text-container">
+        <h1 className="title">À propos de moi</h1>
+        <p className="description">
+          Je suis [Ton nom], une passionnée de voyages et d'aventures à travers le monde. 
+          Chaque destination que je découvre est une nouvelle histoire, un nouveau souffle 
+          d'inspiration. Mon objectif est de partager ces récits avec vous pour vous 
+          transporter dans mes aventures.
+        </p>
+      </div>
+    </div>
+  );
 }
 
-const About: React.FC<{ message: string }> = ({ message }) => {
-  return (
-    <section>
-      <div className="p-4">
-        <h1 className="text-2xl font-bold">{message}</h1>
-      </div>
-    </section>
-  );
-};
-
-const AboutPage: React.FC = () => {
-  const [aboutData, setAboutData] = useState<AboutPageData | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    axios.get('http://localhost:8000/api/about')
-      .then(response => {
-        setAboutData(response.data);
-      })
-      .catch(error => {
-        console.error('Erreur lors du chargement des About', error);
-        setError('Erreur lors du chargement des About');
-      });
-  }, []);
-
-  if (error) {
-    return <div>{error}</div>;
-  }
-
-  return (
-    <main className="p-4">
-      {aboutData ? <About message={aboutData.message} /> : <p>Loading...</p>}
-    </main>
-  );
-};
-
-export default AboutPage;
+export default About;
