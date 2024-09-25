@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import ScrollToTop from '../components/ScrollToTop';
 
 interface Article {
   id: number;
@@ -60,6 +61,7 @@ const ArticlesByTheme: React.FC = () => {
         </article>
         ))}
       </div>
+      <ScrollToTop />
     </div>
   );
 };

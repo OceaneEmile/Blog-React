@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import bannerImage from '../assets/banner.png';
+import ScrollToTop from '../components/ScrollToTop';
 
 
 
@@ -38,7 +39,10 @@ const ALaUne: React.FC<{ articles: Article[] }> = ({ articles }) => {
         {articles.slice(0, 3).map(article => (
           <article key={article.id} className="p-4 border border-gray-200 rounded-lg">
             <a href={`/api/article/${article.id}`} className="block">
-              <img src={article.image} alt={article.title} className="mb-2 w-full h-auto rounded-lg" loading="lazy" />
+              <img src={article.image} 
+              alt={article.title} 
+              className="mb-2 w-full h-[200px] object-cover rounded-lg"
+              loading="lazy" />
             </a>
             <h3 className="text-xl font-semibold">{article.title}</h3>
             <p className="text-sm text-gray-500">{new Date(article.createdAt).toLocaleDateString()}</p>
@@ -63,12 +67,13 @@ const Themes: React.FC<{ themes: Theme[] }> = ({ themes }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {themes.map(theme => (
           <article key={theme.id} className="p-4 border border-gray-200 rounded-lg">
+            <a href={`/api/theme/${theme.id}`} className="block">
             <img
               src={`${backendUrl}${theme.image}`} // Prepend the backend URL to the image path
               alt={theme.name}
-              className="mb-2 w-full h-auto rounded-lg"
-              loading="lazy"
-            />
+              className="mb-2 w-full h-[200px] object-cover rounded-lg"
+              loading="lazy"/>
+              </a>
             <h3 className="text-xl font-semibold">{theme.name}</h3>
           </article>
         ))}
@@ -91,7 +96,9 @@ const Destinations: React.FC<{ destinations: Destination[] }> = ({ destinations 
         {destinations.slice(0, 5).map(destination => (
           <article key={destination.id} className="p-4 border border-gray-200 rounded-lg">
             <a href={`/api/destination/${destination.id}`} className="block">
-              <img src={destination.image} alt={destination.name} className="mb-2 w-full h-auto rounded-lg" loading="lazy" />
+              <img src={destination.image} alt={destination.name} 
+              className="mb-2 w-full h-[200px] object-cover rounded-lg"
+              loading="lazy" />
             </a>
             <h3 className="text-xl font-semibold">{destination.name}</h3>
           </article>
@@ -161,6 +168,7 @@ const Home: React.FC = () => {
       <ALaUne articles={articles} />
       <Themes themes={themes} />
       <Destinations destinations={destinations} />
+      <ScrollToTop />
     </main>
   );
 };

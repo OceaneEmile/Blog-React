@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 interface CommentFormProps {
   articleId: string;
 }
