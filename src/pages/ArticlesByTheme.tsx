@@ -48,21 +48,26 @@ const ArticlesByTheme: React.FC = () => {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-xl mb-4">{Theme ? Theme.name : 'Theme'}</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="container mx-auto p-7 mt-12">
+    <h2 className="text-3xl font-bold text-center mb-2 uppercase">
+      {Theme ? Theme.name : 'Theme'}
+    </h2>
+    <p className="text-center text-gray-700 mb-4">
+      Découvrez les articles sur le Theme {Theme ? Theme.name : 'Theme'}
+    </p>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {articles.map(article => (
-          <article key={article.id} className="p-4 border border-gray-200 rounded-lg">
+        <article key={article.id} className="p-4 border border-gray-200 rounded-lg">
           <a href={`/api/article/${article.id}`} className="block">
             <img src={article.image} alt={article.title} className="mb-2 w-full h-auto rounded-lg" loading="lazy" />
           </a>
           <h3 className="text-xl font-semibold">{article.title}</h3>
           <p className="text-sm text-gray-500">{new Date(article.createdAt).toLocaleDateString()}</p>
         </article>
-        ))}
-      </div>
-      <ScrollToTop />
+      ))}
     </div>
+    <ScrollToTop />
+  </div>
   );
 };
 

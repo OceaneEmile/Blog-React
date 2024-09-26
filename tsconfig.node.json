@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",            // Utilise CommonJS, le format de module standard pour Node.js
+      "target": "es6",                 // Version cible de JavaScript
+      "moduleResolution": "node",      // Utilise la résolution des modules de Node.js
+      "outDir": "./dist",              // Dossier de sortie pour les fichiers compilés
+      "esModuleInterop": true,         // Facilite l'interopérabilité des modules ES6 avec CommonJS
+      "skipLibCheck": true,            // Ignore la vérification des types dans les fichiers de bibliothèques
+      "forceConsistentCasingInFileNames": true // Enforce la cohérence des noms de fichiers
+    },
+    "exclude": [
+      "node_modules"
+    ]
+  }
+  
